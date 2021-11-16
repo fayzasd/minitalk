@@ -5,10 +5,19 @@
 #include <stdlib.h>
 
 
+void server(int sig)
+{
+  printf("remember\n");
+}
+
 int main()
 {
-  int pid;
-
-  pid = getpid();
+  struct sigaction sa = { 0 };
+  int pid = getpid();
+  
+  sa.sa_handler = &server;
+  sigaction(SIGUSR1, &sa, NULL);
   printf("PID: %d\n",pid);
+
+  return 0;
 }
