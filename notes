@@ -1,2 +1,8 @@
 https://www.delftstack.com/howto/c/sigint-in-c/
 https://www.youtube.com/watch?v=PErrlOx3LYE
+
+Divide by 10
+Assign % to array
+
+If sigusr1
+ Assign to array 1, multiply by 10
