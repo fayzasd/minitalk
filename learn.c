@@ -3,26 +3,26 @@
 #include <unistd.h>  
 #include <stdlib.h>
 
-int main()
+int ft_atoi(char *s)
 {
-    int id;
-    int n;
-    int i;
-    id = fork();
+	int n;
+	int i;
+	
+	n = 0;
+	i = 0;
+	while (s[i])
+	{
+		n += s[i] - 48;
+		if (s[i + 1] != '\0')
+			n *= 10;
+		i++;
+	}
+	return n;
+}
 
-    if (id == 0)
-        n = 1;
-    else
-        n = 6;
-    if(id != 0)
-        sleep(1);
-
-    i = n;
-    while (i < n+ 5)
-    {
-        printf("%d",i); 
-        i++;
-    }
-    if (id != 0)
-        printf("\n");
+int main(int argc, char **argv)
+{
+	int id = ft_atoi(argv[1]);
+	printf("Enter the message:");
+	kill(id, SIGUSR2);
 }
