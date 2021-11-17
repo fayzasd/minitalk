@@ -47,13 +47,15 @@ int main(int argc, char **argv)
 		}
 		i++;
 	}
-	while(j >= 0)
+	rem[j] = 3;
+	j = 0;
+	while(rem[j] != 3)
 	{
 		if (rem[j] == 0)
 			kill(id, SIGUSR1);
 		else if (rem[j] == 1)
 			kill(id, SIGUSR2);
-		j--;
+		j++;
 		usleep(100);
 	}
 }

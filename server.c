@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 
+int x = 0;
+
 void ft_putstr(char *str)
 {
 	int i;
@@ -56,21 +58,21 @@ void	btoc(int *bin)
 void ft_server(int sig, siginfo_t *sa, void *a)
 {
 	int i;
-	char x;
+	// static char *x;
 	(void)a;
 	pid_t c_pid;
 	
 	i = 0;
-	x = 0;
 	c_pid = sa -> si_pid;
 	if (sig == SIGUSR2)
 	{
-		x += (char)ft_pow(2,i); 
-		i++;
-		write(1, "1", 1);
+		i += ft_pow(2,x);
+		x++;
 	}
 	else if(sig == SIGUSR1)
-		i++;
+		x++;
+	x = 0;
+	printf("%d\n",i);
 }
 
 
