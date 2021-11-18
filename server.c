@@ -7,6 +7,11 @@
 
 int x = 0;
 
+void ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
 void ft_putstr(char *str)
 {
 	int i;
@@ -17,6 +22,23 @@ void ft_putstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+}
+
+void	ft_putnbr(int n)
+{
+	long	x;
+
+	x = n;
+	if (x < 0)
+	{
+		ft_putchar('-');
+		x = x * -1;
+	}
+	if (x / 10 > 0)
+	{
+		ft_putnbr(x / 10);
+	}
+	ft_putchar((x % 10) + '0');
 }
 
 int ft_pow(int two, int i)
@@ -34,47 +56,91 @@ int ft_pow(int two, int i)
 	return ret;	
 }
 
-void	btoc(int *bin)
-{
+void	btoc(char *str)
+{	
 	int i;
-	int j;
-	char c;
+	int c;
+	char *res;
 
 	i = 0;
-	j = 0;
-	while (bin[i])
+	c = 0;
+	res = (char *)malloc(ft_strlen());
+	while (i < 8)
 	{
-		j = 0;
-		while(j < 8)
+		if (str[i] == 1)
 		{
-			c *= ft_pow(2,i);
-			j++;
+			c += ft_pow(2,j);
 		}
-		write(1, &c, 1);
-		i++;
+		i /= 10;
+		j++;
 	}
+	ft_putchar(c);
 }
+
+
+// void	btoc(int *bin)
+// {
+// 	int i;
+// 	int j;
+// 	char c;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (bin[i])
+// 	{
+// 		j = 0;
+// 		while(j < 8)
+// 		{
+// 			c *= ft_pow(2,i);
+// 			j++;
+// 		}
+// 		write(1, &c, 1);
+// 		i++;
+// 	}
+// }
+
+// void ft_server(int sig, siginfo_t *sa, void *a)
+// {
+// 	int i;
+// 	// static char *x;
+// 	(void)a;
+// 	pid_t c_pid;
+	
+// 	i = 0;
+// 	c_pid = sa -> si_pid;
+// 	if (sig == SIGUSR2)
+// 	{
+// 		i += ft_pow(2,x);
+// 		x++;
+// 	}
+// 	else if(sig == SIGUSR1)
+// 		x++;
+// 	x = 0;
+// 	printf("%d\n",i);
+// }
 
 void ft_server(int sig, siginfo_t *sa, void *a)
 {
+	char *str;
 	int i;
-	// static char *x;
 	(void)a;
 	pid_t c_pid;
 	
 	i = 0;
+	str = (char *)malloc(sizeof(char) * 8);
 	c_pid = sa -> si_pid;
 	if (sig == SIGUSR2)
 	{
-		i += ft_pow(2,x);
-		x++;
+		str[i] = '1';
+		i++;
 	}
 	else if(sig == SIGUSR1)
-		x++;
-	x = 0;
-	printf("%d\n",i);
+	{
+		str[i] = '0';
+		i++;
+	}	
+	ft_putstr(str);
 }
-
 
 int main()
 {
